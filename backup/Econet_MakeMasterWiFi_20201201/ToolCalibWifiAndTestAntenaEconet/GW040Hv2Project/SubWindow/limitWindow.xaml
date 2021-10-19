@@ -1,0 +1,369 @@
+﻿<Window x:Class="GW040Hv2Project.limitWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GW040Hv2Project"
+        mc:Ignorable="d"
+        Title="limitWindow" Height="700" Width="1100" WindowStartupLocation="CenterScreen" Style="{StaticResource customWindow}">
+
+    <Window.Resources>
+        <Style TargetType="{x:Type TabItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Grid>
+                            <Border  Name="Border" Margin="0,0,-4,0" BorderThickness="1,1,1,1" CornerRadius="2,12,0,0" >
+                                <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="12,2,12,2" RecognizesAccessKey="True"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Panel.ZIndex" Value="100"/>
+                                <Setter TargetName="Border" Property="Background" Value="#43d854" />
+                                <Setter TargetName="Border" Property="BorderThickness" Value="1,1,1,0" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter TargetName="Border" Property="Background" Value="#FFEEEEEE" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="Orange" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    
+    <Border Background="#BFCDDB" CornerRadius="2" BorderBrush="{StaticResource colorBorder}" BorderThickness="1,1,1,1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Background="#FFFFFF">
+                <Label VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="Black" FontSize="12" Content="Thiết lập máy đo"/>
+                <Label MouseDown="Label_MouseDown" Width="50" HorizontalContentAlignment="Right" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Black" FontSize="17" Margin="0,-5,5,0" Content="X"/>
+            </Grid>
+
+            <TabControl Grid.Row="1" Margin="0">
+                <TabItem>
+                    <TabItem.Header>
+                        <Grid Height="30">
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" Text="TX Limit-Config" FontWeight="SemiBold"/>
+                        </Grid>
+                    </TabItem.Header>
+
+                    <DataGrid Margin="5,0,5,5" x:Name="dgtxlimit" 
+                                              Background="White"
+                                              ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
+                                              CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserReorderColumns="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                                              GridLinesVisibility="None"
+                                              HeadersVisibility="Column"
+                                              BorderThickness="0,0,0,0"
+                                              SelectionUnit="FullRow" SelectionMode="Extended"
+                                              >
+
+                        <DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                                <Setter Property="BorderBrush" Value="#FFB3B3B3"/>
+                                <Setter Property="FontSize" Value="15"/>
+                                <Setter Property="FontWeight" Value="Normal"/>
+                                <Setter Property="Height" Value="25"/>
+                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGrid.CellStyle>
+
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="FontSize" Value="13"/>
+                                <Setter Property="Height" Value="40"/>
+                                <Setter Property="FontWeight" Value="Normal"/>
+                                <Setter Property="BorderBrush" Value="#FFB3B3B3"/>
+                                <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                                <Setter Property="Padding" Value="3,0,0,0"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Range" Width="0.7*" Binding="{Binding rangefreq}"/>
+                            <DataGridTextColumn Header="WIFI" Width="1.5*" Binding="{Binding wifi}"/>
+                            <DataGridTextColumn Header="Rate" Width="0.7*" Binding="{Binding mcs}"/>
+                            <DataGridTextColumn Header="PwMax" Width="*" Binding="{Binding power_MAX}"/>
+                            <DataGridTextColumn Header="PwMin" Width="*" Binding="{Binding power_MIN}"/>
+                            <DataGridTextColumn Header="evmMax" Width="*" Binding="{Binding evm_MAX}"/>
+                            <DataGridTextColumn Header="evmMin" Width="*" Binding="{Binding evm_MIN}"/>
+                            <DataGridTextColumn Header="FreqEMax" Width="*" Binding="{Binding freqError_MAX}"/>
+                            <DataGridTextColumn Header="FreqEMin" Width="*" Binding="{Binding freqError_MIN}"/>
+                            <DataGridTextColumn Header="SymMax" Width="*" Binding="{Binding symclock_MAX}"/>
+                            <DataGridTextColumn Header="SymMin" Width="*" Binding="{Binding symclock_MIN}"/>
+
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+
+                </TabItem>
+                
+                <TabItem>
+                    <TabItem.Header>
+                        <Grid Height="30">
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" Text="RX Limit-Config" FontWeight="SemiBold"/>
+                        </Grid>
+                    </TabItem.Header>
+
+                    <DataGrid Margin="5,0,5,5" x:Name="dgrxlimit" 
+                                              Background="White"
+                                              ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
+                                              CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserReorderColumns="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                                              GridLinesVisibility="None"
+                                              HeadersVisibility="Column"
+                                              BorderThickness="0,0,0,0"
+                                              SelectionUnit="FullRow" SelectionMode="Extended"
+                                              >
+
+                        <DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                                <Setter Property="BorderBrush" Value="#FFB3B3B3"/>
+                                <Setter Property="FontSize" Value="15"/>
+                                <Setter Property="FontWeight" Value="Normal"/>
+                                <Setter Property="Height" Value="25"/>
+                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGrid.CellStyle>
+
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="FontSize" Value="13"/>
+                                <Setter Property="Height" Value="40"/>
+                                <Setter Property="FontWeight" Value="Normal"/>
+                                <Setter Property="BorderBrush" Value="#FFB3B3B3"/>
+                                <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                                <Setter Property="Padding" Value="3,0,0,0"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Range" Width="*" Binding="{Binding rangefreq}"/>
+                            <DataGridTextColumn Header="WIFI" Width="1.5*" Binding="{Binding wifi}"/>
+                            <DataGridTextColumn Header="Rate" Width="*" Binding="{Binding mcs}"/>
+                            <DataGridTextColumn Header="PwTransmit" Width="*" Binding="{Binding power_Transmit}"/>
+                            <DataGridTextColumn Header="PER" Width="*" Binding="{Binding PER}"/>
+                          
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+                </TabItem>
+
+                <TabItem>
+                    <TabItem.Header>
+                        <Grid Height="30">
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" Text="Attenuator-Config" FontWeight="SemiBold"/>
+                        </Grid>
+                    </TabItem.Header>
+
+                    <DataGrid Margin="3,2,7,3" x:Name="dgattenuator" 
+                                              Background="White"
+                                              ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
+                                              CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserReorderColumns="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                                              GridLinesVisibility="None"
+                                              HeadersVisibility="Column"
+                                              BorderThickness="0,0,0,0"
+                                              SelectionUnit="FullRow" SelectionMode="Extended"
+                                              >
+
+                        <DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                                <Setter Property="BorderBrush" Value="#FFB3B3B3"/>
+                                <Setter Property="FontSize" Value="15"/>
+                                <Setter Property="FontWeight" Value="Normal"/>
+                                <Setter Property="Height" Value="25"/>
+                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGrid.CellStyle>
+
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="FontSize" Value="13"/>
+                                <Setter Property="Height" Value="40"/>
+                                <Setter Property="FontWeight" Value="Normal"/>
+                                <Setter Property="BorderBrush" Value="#FFB3B3B3"/>
+                                <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                                <Setter Property="Padding" Value="3,0,0,0"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Channel" Width="*" Binding="{Binding channelnumber}"/>
+                            <DataGridTextColumn Header="Frequency(Hz)" Width="*" Binding="{Binding channelfreq}"/>
+                            <DataGridTextColumn Header="Anten1-Attenuator(dBm)" Width="*" Binding="{Binding at1_attenuator}"/>
+                            <DataGridTextColumn Header="Anten2-Attenuator(dBm)" Width="*" Binding="{Binding at2_attenuator}"/>
+
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+                </TabItem>
+
+                <TabItem>
+                    <TabItem.Header>
+                        <Grid Height="30">
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" Text="WaveForm-Config" FontWeight="SemiBold"/>
+                        </Grid>
+                    </TabItem.Header>
+                    
+                    <DataGrid Margin="5,0,5,5" x:Name="dgwaveform" 
+                                              Background="White"
+                                              ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
+                                              CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserReorderColumns="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                                              GridLinesVisibility="None"
+                                              HeadersVisibility="Column"
+                                              BorderThickness="0,0,0,0"
+                                              SelectionUnit="FullRow" SelectionMode="Extended"
+                                              >
+
+                        <DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                                <Setter Property="BorderBrush" Value="#FFB3B3B3"/>
+                                <Setter Property="FontSize" Value="15"/>
+                                <Setter Property="FontWeight" Value="Normal"/>
+                                <Setter Property="Height" Value="25"/>
+                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGrid.CellStyle>
+
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="FontSize" Value="13"/>
+                                <Setter Property="Height" Value="40"/>
+                                <Setter Property="FontWeight" Value="Normal"/>
+                                <Setter Property="BorderBrush" Value="#FFB3B3B3"/>
+                                <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                                <Setter Property="Padding" Value="3,0,0,0"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Instrument" Width="*" Binding="{Binding instrument}"/>
+                            <DataGridTextColumn Header="WIFI" Width="*" Binding="{Binding wifi}"/>
+                            <DataGridTextColumn Header="Rate" Width="*" Binding="{Binding mcs}"/>
+                            <DataGridTextColumn Header="Bandwidth" Width="*" Binding="{Binding bandwidth}"/>
+                            <DataGridTextColumn Header="WaveForm" Width="2*" Binding="{Binding waveform}"/>
+
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+                </TabItem>
+
+                <TabItem>
+                    <TabItem.Header>
+                        <Grid Height="30">
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" Text="ChannelManagement" FontWeight="SemiBold"/>
+                        </Grid>
+                    </TabItem.Header>
+
+                    <DataGrid Margin="5,0,5,5" x:Name="dgchannelmanagement" 
+                                              Background="White"
+                                              ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
+                                              CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserReorderColumns="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                                              GridLinesVisibility="None"
+                                              HeadersVisibility="Column"
+                                              BorderThickness="0,0,0,0"
+                                              SelectionUnit="FullRow" SelectionMode="Extended"
+                                              >
+
+                        <DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                                <Setter Property="BorderBrush" Value="#FFB3B3B3"/>
+                                <Setter Property="FontSize" Value="15"/>
+                                <Setter Property="FontWeight" Value="Normal"/>
+                                <Setter Property="Height" Value="25"/>
+                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGrid.CellStyle>
+
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="FontSize" Value="13"/>
+                                <Setter Property="Height" Value="40"/>
+                                <Setter Property="FontWeight" Value="Normal"/>
+                                <Setter Property="BorderBrush" Value="#FFB3B3B3"/>
+                                <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                                <Setter Property="Padding" Value="3,0,0,0"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Range" Width="*" Binding="{Binding rangefreq}"/>
+                            <DataGridTextColumn Header="Channel" Width="*" Binding="{Binding channel}"/>
+                            <DataGridTextColumn Header="Frequency(Hz)" Width="*" Binding="{Binding channelfreq}"/>
+
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+                    
+                </TabItem>
+
+                <TabItem>
+                    <TabItem.Header>
+                        <Grid Height="30">
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" Text="BIN                     " FontWeight="SemiBold"/>
+                        </Grid>
+                    </TabItem.Header>
+
+                    <DataGrid Margin="5,0,5,5" x:Name="dgBIN" 
+                                              Background="White"
+                                              ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
+                                              CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserReorderColumns="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                                              GridLinesVisibility="None"
+                                              HeadersVisibility="Column"
+                                              BorderThickness="0,0,0,0"
+                                              SelectionUnit="FullRow" SelectionMode="Extended"
+                                              >
+
+                        <DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                                <Setter Property="BorderBrush" Value="#FFB3B3B3"/>
+                                <Setter Property="FontSize" Value="15"/>
+                                <Setter Property="FontWeight" Value="Normal"/>
+                                <Setter Property="Height" Value="25"/>
+                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGrid.CellStyle>
+
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="FontSize" Value="13"/>
+                                <Setter Property="Height" Value="40"/>
+                                <Setter Property="FontWeight" Value="Normal"/>
+                                <Setter Property="BorderBrush" Value="#FFB3B3B3"/>
+                                <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                                <Setter Property="Padding" Value="3,0,0,0"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Register" Width="*" Binding="{Binding Address}"/>
+                            <DataGridTextColumn Header="Old Value" Width="*" Binding="{Binding oldValue}"/>
+                            <DataGridTextColumn Header="New Value" Width="*" Binding="{Binding newValue}"/>
+
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+
+                </TabItem>
+            </TabControl>
+
+
+        </Grid>
+    </Border>
+    
+</Window>

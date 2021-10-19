@@ -1,0 +1,23 @@
+﻿<Window x:Class="Scryption.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Scryption"
+        mc:Ignorable="d"
+        Title="Phần mềm mã hoá text file" Height="200" Width="800" WindowStartupLocation="CenterScreen">
+  
+    <StackPanel Margin="10,10,10,10">
+        <Label Content="Select folder:" />
+        <Grid Height="25">
+            <TextBox x:Name="txt_Path" IsReadOnly="True" VerticalContentAlignment="Center" Margin="0,0,72,0" />
+            <Button Click="Button_Click" HorizontalAlignment="Right" Width="70" Content="browser..."/>
+        </Grid>
+
+        <WrapPanel Margin="0,10,0,0">
+            <Button Click="Button_Click" Height="35" Width="100" Content="Encryption"/>
+            <Button Click="Button_Click" Height="35" Width="100" Margin="20,0,0,0" Content="Decryption"/>
+        </WrapPanel>
+    </StackPanel>
+    
+</Window>

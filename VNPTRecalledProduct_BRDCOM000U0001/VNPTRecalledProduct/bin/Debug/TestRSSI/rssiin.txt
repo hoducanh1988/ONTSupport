@@ -1,0 +1,7 @@
+ssid_name=C5482E
+wifi_password=
+sleep_connect_wifi=5000
+test_antenna=2
+max_time=30
+rssi_lower_limit_dbm=-40
+rssi_display_min_dbm=-100

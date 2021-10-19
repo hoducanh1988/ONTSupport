@@ -1,0 +1,259 @@
+
+# 
+# 
+# ifconfig br0
+br0       Link encap:Ethernet  HWaddr D4:9A:A0:09:D7:78  
+          inet addr:192.168.1.1  Bcast:192.168.1.255  Mask:255.255.255.0
+          inet6 addr: fe80::1/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:2000  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:3297 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:0 (0.0 B)  TX bytes:1106629 (1.0 MiB)
+
+# iwpriv rai0 e2p 5A=8384
+rai0      e2p:
+[0x5A]:8384  
+# iwpriv rai0 e2p 59=8485
+rai0      e2p:
+[0x59]:8485  
+# iwpriv rai0 e2p 5B=C083
+rai0      e2p:
+[0x5B]:C083  
+# iwpriv rai0 e2p 60=8384
+rai0      e2p:
+[0x60]:8384  
+# iwpriv rai0 e2p 5F=8485
+rai0      e2p:
+[0x5F]:8485  
+# iwpriv rai0 e2p 61=C083
+rai0      e2p:
+[0x61]:C083  
+# iwpriv rai0 e2p 143=C7C4
+rai0      e2p:
+[0x143]:C7C4  
+# iwpriv rai0 e2p 144=C0C7
+rai0      e2p:
+[0x144]:C0C7  
+# iwpriv rai0 e2p 148=C4C4
+rai0      e2p:
+[0x148]:C4C4  
+# iwpriv rai0 e2p 149=40C4
+rai0      e2p:
+[0x149]:40C4  
+# iwpriv rai0 e2p 14D=C3C5
+rai0      e2p:
+[0x14D]:C3C5  
+# iwpriv rai0 e2p 14E=00C3
+rai0      e2p:
+[0x14E]:C3  
+# iwpriv rai0 e2p 157=8383
+rai0      e2p:
+[0x157]:8383  
+# iwpriv rai0 e2p 158=C083
+rai0      e2p:
+[0x158]:C083  
+# iwpriv rai0 e2p 15C=8483
+rai0      e2p:
+[0x15C]:8483  
+# iwpriv rai0 e2p 15D=C084
+rai0      e2p:
+[0x15D]:C084  
+# iwpriv rai0 e2p 161=C181
+rai0      e2p:
+[0x161]:C181  
+# iwpriv rai0 e2p 162=C0C1
+rai0      e2p:
+[0x162]:C0C1  
+# iwpriv rai0 e2p 166=C2C2
+rai0      e2p:
+[0x166]:C2C2  
+# iwpriv rai0 e2p 167=C0C2
+rai0      e2p:
+[0x167]:C0C2  
+# iwpriv rai0 e2p 16B=C3C4
+rai0      e2p:
+[0x16B]:C3C4  
+# iwpriv rai0 e2p 16C=40C3
+rai0      e2p:
+[0x16C]:40C3  
+# iwpriv rai0 e2p 170=80C1
+rai0      e2p:
+[0x170]:80C1  
+# iwpriv rai0 e2p 171=4080
+rai0      e2p:
+[0x171]:4080  
+# iwpriv rai0 e2p 175=8180
+rai0      e2p:
+[0x175]:8180  
+# iwpriv rai0 e2p 176=0081
+rai0      e2p:
+[0x176]:81  
+# iwpriv rai0 e2p 17F=C181
+rai0      e2p:
+[0x17F]:C181  
+# iwpriv rai0 e2p 180=C0C1
+rai0      e2p:
+[0x180]:C0C1  
+# iwpriv rai0 e2p 184=84C1
+rai0      e2p:
+[0x184]:84C1  
+# iwpriv rai0 e2p 185=C084
+rai0      e2p:
+[0x185]:C084  
+# iwpriv rai0 e2p 189=80C1
+rai0      e2p:
+[0x189]:80C1  
+# iwpriv rai0 e2p 18A=C080
+rai0      e2p:
+[0x18A]:C080  
+# iwpriv rai0 e2p 18E=80C1
+rai0      e2p:
+[0x18E]:80C1  
+# iwpriv rai0 e2p 18F=0080
+rai0      e2p:
+[0x18F]:80  
+# iwpriv rai0 set efuseBufferModeWriteBack=1
+# tcapi set WLan11ac_Common WriteBinToFlash 1
+# tcapi commit WLan11ac
+ run_ac_wps :WPSActiveStatus = NULL
+WPSOOBActive = NULL
+ReCounterActive = NULL
+WPSGenPinCode = NULL
+AndesLedEnhanceOP: Fail!
+RtmpOSNetDevDetach(): RtmpOSNetDeviceDetach(), dev->name=rai0!
+The remaining IMEM space cannot accommodate section .imem_text !!
+Remaining IMEM space: 7356 bytes	Section Size: 9812 bytes
+ChipOpsMCUHook
+now bb MainSsid mac d4:9a:a0:09:d7:79
+device rai0 entered promiscuous mode
+br0: topology change detected, propagating
+br0: port 1(rai0) entering forwarding state
+br0: port 1(rai0) entering forwarding state
+add rai0 to br0
+device ra0 entered promiscuous mode
+br0: topology change detected, propagating
+br0: port 6(ra0) entering forwarding state
+br0: port 6(ra0) entering forwarding state
+add ra0 to br0
+xyyou:write bin to flash !
+# ifconfig ra0 down
+br0: port 6(ra0) entering forwarding state
+# ifconfig rai0 down
+br0: port 1(rai0) entering forwarding state
+# rmmod mt7615_ap
+device ra0 left promiscuous mode
+br0: port 6(ra0) entering disabled state
+RtmpOSNetDevDetach(): RtmpOSNetDeviceDetach(), dev->name=rai0!
+device rai0 left promiscuous mode
+br0: port 1(rai0) entering disabled state
+# insmod lib/modules/mt7615_ap.ko
+The remaining IMEM space cannot accommodate section .imem_text !!
+Remaining IMEM space: 7356 bytes	Section Size: 9812 bytes
+ChipOpsMCUHook
+# ifconfig rai0 up
+now bb MainSsid mac d4:9a:a0:09:d7:79
+# ifconfig ra0 up
+# iwpriv rai0 e2p 5A
+rai0      e2p:
+[0x005A]:0x8384  
+# iwpriv rai0 e2p 59
+rai0      e2p:
+[0x0059]:0x8485  
+# iwpriv rai0 e2p 5B
+rai0      e2p:
+[0x005B]:0xC083  
+# iwpriv rai0 e2p 60
+rai0      e2p:
+[0x0060]:0x8384  
+# iwpriv rai0 e2p 5F
+rai0      e2p:
+[0x005F]:0x8485  
+# iwpriv rai0 e2p 61
+rai0      e2p:
+[0x0061]:0xC083  
+# iwpriv rai0 e2p 143
+rai0      e2p:
+[0x0143]:0xC7C4  
+# iwpriv rai0 e2p 144
+rai0      e2p:
+[0x0144]:0xC0C7  
+# iwpriv rai0 e2p 148
+rai0      e2p:
+[0x0148]:0xC4C4  
+# iwpriv rai0 e2p 149
+rai0      e2p:
+[0x0149]:0x40C4  
+# iwpriv rai0 e2p 14D
+rai0      e2p:
+[0x014D]:0xC3C5  
+# iwpriv rai0 e2p 14E
+rai0      e2p:
+[0x014E]:0x00C3  
+# iwpriv rai0 e2p 157
+rai0      e2p:
+[0x0157]:0x8383  
+# iwpriv rai0 e2p 158
+rai0      e2p:
+[0x0158]:0xC083  
+# iwpriv rai0 e2p 15C
+rai0      e2p:
+[0x015C]:0x8483  
+# iwpriv rai0 e2p 15D
+rai0      e2p:
+[0x015D]:0xC084  
+# iwpriv rai0 e2p 161
+rai0      e2p:
+[0x0161]:0xC181  
+# iwpriv rai0 e2p 162
+rai0      e2p:
+[0x0162]:0xC0C1  
+# iwpriv rai0 e2p 166
+rai0      e2p:
+[0x0166]:0xC2C2  
+# iwpriv rai0 e2p 167
+rai0      e2p:
+[0x0167]:0xC0C2  
+# iwpriv rai0 e2p 16B
+rai0      e2p:
+[0x016B]:0xC3C4  
+# iwpriv rai0 e2p 16C
+rai0      e2p:
+[0x016C]:0x40C3  
+# iwpriv rai0 e2p 170
+rai0      e2p:
+[0x0170]:0x80C1  
+# iwpriv rai0 e2p 171
+rai0      e2p:
+[0x0171]:0x4080  
+# iwpriv rai0 e2p 175
+rai0      e2p:
+[0x0175]:0x8180  
+# iwpriv rai0 e2p 176
+rai0      e2p:
+[0x0176]:0x0081  
+# iwpriv rai0 e2p 17F
+rai0      e2p:
+[0x017F]:0xC181  
+# iwpriv rai0 e2p 180
+rai0      e2p:
+[0x0180]:0xC0C1  
+# iwpriv rai0 e2p 184
+rai0      e2p:
+[0x0184]:0x84C1  
+# iwpriv rai0 e2p 185
+rai0      e2p:
+[0x0185]:0xC084  
+# iwpriv rai0 e2p 189
+rai0      e2p:
+[0x0189]:0x80C1  
+# iwpriv rai0 e2p 18A
+rai0      e2p:
+[0x018A]:0xC080  
+# iwpriv rai0 e2p 18E
+rai0      e2p:
+[0x018E]:0x80C1  
+# iwpriv rai0 e2p 18F
+rai0      e2p:
+[0x018F]:0x0080  
+# 

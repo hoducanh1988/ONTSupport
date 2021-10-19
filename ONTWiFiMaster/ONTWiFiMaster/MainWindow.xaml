@@ -1,0 +1,94 @@
+﻿<Window x:Class="ONTWiFiMaster.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ONTWiFiMaster"
+        mc:Ignorable="d"
+        Title="{Binding Path=appInfo, UpdateSourceTrigger=PropertyChanged}" Height="700" Width="1100" WindowStartupLocation="CenterScreen"
+        Closing="Window_Closing">
+
+    <Grid Margin="5,0,5,5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <WrapPanel Margin="0,-10,0,0">
+                <Label FontSize="22" FontWeight="Bold" Content="Product:"/>
+                <Label FontSize="22" FontWeight="Bold" Content="{Binding Path=productName, UpdateSourceTrigger=PropertyChanged}"/>
+            </WrapPanel>
+            <WrapPanel Margin="0,-7,0,0">
+                <Label FontSize="18" FontWeight="SemiBold" Content="Station:"/>
+                <Label FontSize="18" FontWeight="SemiBold" Content="{Binding Path=productStation, UpdateSourceTrigger=PropertyChanged}"/>
+            </WrapPanel>
+            <WrapPanel Margin="0,-7,0,0" >
+                <Label Foreground="Blue" MouseDown="lbl_mode_MouseDown" FontSize="18" FontWeight="Normal" Content="Mode: "/>
+                <Label x:Name="lbl_mode" MouseDown="lbl_mode_MouseDown" Foreground="Blue" FontSize="18" FontWeight="Normal">
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=modeRD}" Value="True">
+                                    <Setter Property="Content" Value="Nghiên cứu và phát triển"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=modeRD}" Value="False">
+                                    <Setter Property="Content" Value="Sản xuất"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+                
+            </WrapPanel>
+
+        </StackPanel>
+
+        <Border Grid.Row="1" BorderBrush="#777777" BorderThickness="0,0,0,0.5">
+            <Grid Margin="0,5,0,3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="4"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <WrapPanel Margin="0,-2,0,0">
+                        <WrapPanel.Resources>
+                            <Style TargetType="Label">
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                <Setter Property="FontSize" Value="17"/>
+                                <Setter Property="Width" Value="100"/>
+                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                                <EventSetter Event="MouseDown" Handler="Label_MouseDown"/>
+
+                                <Style.Triggers>
+                                    <Trigger Property="Label.IsMouseOver" Value="False">
+                                        <Setter Property="FontWeight" Value="Normal"/>
+                                    </Trigger>
+                                    <Trigger Property="Label.IsMouseOver" Value="True">
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </WrapPanel.Resources>
+                        <Label Content="RUN ALL"/>
+                        <Label Content="SETTING"/>
+                        <Label Content="LOG"/>
+                        <Label Content="HELP"/>
+                        <Label Content="ABOUT"/>
+                    </WrapPanel>
+                </Grid>
+                <Label x:Name="lblMinus" Grid.Row="1" VerticalAlignment="Stretch" Width="100" HorizontalAlignment="Left" Background="Lime"/>
+            </Grid>
+        </Border>
+
+
+        <Grid  Grid.Row="2" x:Name="grid_main"/>
+
+    </Grid>
+
+</Window>

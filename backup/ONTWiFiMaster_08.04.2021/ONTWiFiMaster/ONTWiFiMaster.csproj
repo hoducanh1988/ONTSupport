@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{27A46A35-D52D-40EB-8207-E88BFAB23949}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>ONTWiFiMaster</RootNamespace>
+    <AssemblyName>ONTWiFiMaster</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Asset\Icon\wifi.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NationalInstruments.VisaNS, Version=13.0.45.167, Culture=neutral, PublicKeyToken=4febd62461bf11a4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\NationalInstruments.VisaNS.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio, Version=1.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.1.9.0\lib\net35\NAudio.dll</HintPath>
+    </Reference>
+    <Reference Include="reachframework" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UtilityPack, Version=1.0.9.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UtilityPack.1.0.9.3\lib\net45\UtilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Function\Base\FunctionSupport.cs" />
+    <Compile Include="Function\Custom\AttenuatorInfo.cs" />
+    <Compile Include="Function\Custom\BinRegisterInfo.cs" />
+    <Compile Include="Function\Custom\CableDataBinding.cs" />
+    <Compile Include="Function\Custom\CalibDataBinding.cs" />
+    <Compile Include="Function\Custom\CalibFrequencyResultInfo.cs" />
+    <Compile Include="Function\Custom\CalibPowerConfigInfo.cs" />
+    <Compile Include="Function\Custom\CalibPowerResultInfo.cs" />
+    <Compile Include="Function\Custom\ChannelInfo.cs" />
+    <Compile Include="Function\Custom\ItemMasterResult.cs" />
+    <Compile Include="Function\Custom\MainWindowDataBinding.cs" />
+    <Compile Include="Function\Custom\MasterDataBinding.cs" />
+    <Compile Include="Function\Custom\MasterResultInfo.cs" />
+    <Compile Include="Function\Custom\PerResultInfo.cs" />
+    <Compile Include="Function\Custom\RegisterInfo.cs" />
+    <Compile Include="Function\Custom\RxLimitInfo.cs" />
+    <Compile Include="Function\Custom\SensitivityConfigInfo.cs" />
+    <Compile Include="Function\Custom\SettingDataBinding.cs" />
+    <Compile Include="Function\Custom\SignalConfigInfo.cs" />
+    <Compile Include="Function\Custom\SignalResultInfo.cs" />
+    <Compile Include="Function\Custom\TestingDataBinding.cs" />
+    <Compile Include="Function\Custom\TxLimitInfo.cs" />
+    <Compile Include="Function\Custom\VerifyDataBinding.cs" />
+    <Compile Include="Function\Custom\WaveFormInfo.cs" />
+    <Compile Include="Function\Dut\OntEconet.cs" />
+    <Compile Include="Function\Excute\CalibrationWiFi.cs" />
+    <Compile Include="Function\Excute\MeasureAttenuator.cs" />
+    <Compile Include="Function\Excute\MeasureMasterData.cs" />
+    <Compile Include="Function\Excute\VerifyWiFiSignal.cs" />
+    <Compile Include="Function\Global\myParameter.cs" />
+    <Compile Include="Function\Instrument\E6640A.cs" />
+    <Compile Include="Function\Instrument\IInstrument.cs" />
+    <Compile Include="Function\Instrument\MT8870A.cs" />
+    <Compile Include="Function\IO\AttenuatorConfigFile.cs" />
+    <Compile Include="Function\IO\BinFile.cs" />
+    <Compile Include="Function\IO\CalibConfigFile.cs" />
+    <Compile Include="Function\IO\CalibLogFile.cs" />
+    <Compile Include="Function\IO\ChannelManagementFile.cs" />
+    <Compile Include="Function\IO\MasterFile.cs" />
+    <Compile Include="Function\IO\MasterLogFile.cs" />
+    <Compile Include="Function\IO\RFLogFile.cs" />
+    <Compile Include="Function\IO\RxLimitConfigFile.cs" />
+    <Compile Include="Function\IO\TestCaseConfigFile.cs" />
+    <Compile Include="Function\IO\TxLimitConfigFile.cs" />
+    <Compile Include="Function\IO\VerifyLogFile.cs" />
+    <Compile Include="Function\IO\WaveformConfigFile.cs" />
+    <Compile Include="Function\Protocol\Serial.cs" />
+    <Compile Include="LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="uCtrl\Main\ucRunAll.xaml.cs">
+      <DependentUpon>ucRunAll.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="uCtrl\Main\ucSetting.xaml.cs">
+      <DependentUpon>ucSetting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="uCtrl\Sub\ucCalib.xaml.cs">
+      <DependentUpon>ucCalib.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="uCtrl\Sub\ucItemMaster.xaml.cs">
+      <DependentUpon>ucItemMaster.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="uCtrl\Sub\ucMaster.xaml.cs">
+      <DependentUpon>ucMaster.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="uCtrl\Sub\ucRF.xaml.cs">
+      <DependentUpon>ucRF.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="uCtrl\Sub\ucVerify.xaml.cs">
+      <DependentUpon>ucVerify.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="uCtrl\Main\ucAbout.xaml.cs">
+      <DependentUpon>ucAbout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="uCtrl\Main\ucHelp.xaml.cs">
+      <DependentUpon>ucHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="uCtrl\Main\ucLog.xaml.cs">
+      <DependentUpon>ucLog.xaml</DependentUpon>
+    </Compile>
+    <Page Include="LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Function\Global\myGlobal.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="uCtrl\Main\ucRunAll.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="uCtrl\Main\ucSetting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="uCtrl\Sub\ucCalib.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="uCtrl\Sub\ucItemMaster.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="uCtrl\Sub\ucMaster.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="uCtrl\Sub\ucRF.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="uCtrl\Sub\ucVerify.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="uCtrl\Main\ucAbout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="uCtrl\Main\ucHelp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="uCtrl\Main\ucLog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="sWndw\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asset\Icon\wifi.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asset\Image\VNPT.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

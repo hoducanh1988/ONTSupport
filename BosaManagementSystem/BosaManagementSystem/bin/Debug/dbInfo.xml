@@ -1,0 +1,8 @@
+﻿<databaseInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <dbServerType>PostgreSQL</dbServerType>
+  <dbServerIP>10.5.4.254</dbServerIP>
+  <dbServerUser>postgres</dbServerUser>
+  <dbServerPass>P@ssword</dbServerPass>
+  <dbName>opticalbosa</dbName>
+  <autoCreateDB>true</autoCreateDB>
+</databaseInfo>

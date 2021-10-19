@@ -1,0 +1,40 @@
+﻿<Window x:Class="GW040Hv2Project.SubWindow.RDWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        WindowStartupLocation="CenterScreen"
+        xmlns:local="clr-namespace:GW040Hv2Project.SubWindow"
+        mc:Ignorable="d"
+        Title="RD Window" Height="180" Width="300">
+    <StackPanel Margin="3">
+        <TextBlock  FontWeight="DemiBold" FontSize="20" Foreground="Blue"  HorizontalAlignment="Center" Text="RD Mode"></TextBlock>
+        <StackPanel Orientation="Horizontal" Margin="5">
+            <TextBlock Text="Nhập PASS:  "></TextBlock>
+            <PasswordBox KeyDown="txtPass_KeyDown" x:Name="txtPass" Width="200" BorderThickness=" 0 0 0 1" ></PasswordBox>
+        </StackPanel>
+        <Button Margin="0 5 0 0"  Foreground="LightGreen"  Background="Brown" Width="130" Height="35" Click="Button_Click">
+            <Button.Resources>
+                <Style TargetType= "{x:Type Border}" >
+                    <Setter Property="CornerRadius" Value="10"></Setter>
+                </Style>
+                <Style TargetType="Button">
+                    <Setter Property="Content" Value="RD Mode ?"></Setter>
+                    <Style.Triggers >
+                        <DataTrigger Binding="{Binding Path=RDMode, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  Value="TRUE">
+                            <Setter Property="Content" Value="Production Mode ?"></Setter>
+                        </DataTrigger>
+                        <!--<DataTrigger Binding="{Binding Path=RDMode, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  Value="TRUE">
+                            <Setter Property="Content" Value="Production Mode ?"></Setter>
+                        </DataTrigger>-->
+                    </Style.Triggers>
+                </Style>
+            </Button.Resources>
+            <!--<StackPanel Orientation="Horizontal" Width="124">
+                <TextBlock Foreground="LightGreen"  FontWeight="DemiBold" Text=""  VerticalAlignment="Center" HorizontalAlignment="Left" ></TextBlock>
+            </StackPanel>-->            
+        </Button>
+        <TextBlock  Foreground="Brown" x:Name="txtStatus"  HorizontalAlignment="Center" Margin="0 10 0 0" Text="*****************"></TextBlock>
+       
+    </StackPanel>
+</Window>

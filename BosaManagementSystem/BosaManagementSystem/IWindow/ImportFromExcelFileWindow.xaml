@@ -1,0 +1,40 @@
+﻿<Window x:Class="BosaManagementSystem.IWindow.ImportFromExcelFileWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BosaManagementSystem.IWindow"
+        mc:Ignorable="d"
+        Title="Nhập dữ liệu từ excel file vào database" Height="200" Width="700" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+
+    <StackPanel Margin="5">
+        <WrapPanel>
+            <Label Content="Import folder path :"/>
+            <Label FontWeight="SemiBold" Content="{Binding Path=bosaFolderPath, UpdateSourceTrigger=PropertyChanged}"/>
+        </WrapPanel>
+        <WrapPanel>
+            <Label Content="Import file name :"/>
+            <Label FontWeight="SemiBold" Content="{Binding Path=importFileName, UpdateSourceTrigger=PropertyChanged}"/>
+        </WrapPanel>
+        <WrapPanel>
+            <Label Content="Inprogress file :"/>
+            <Label Content="{Binding Path=bosaFileProgressValue, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Content="/"/>
+            <Label Content="{Binding Path=bosaFileMaxValue, UpdateSourceTrigger=PropertyChanged}"/>
+        </WrapPanel>
+        <ProgressBar Height="5" Value="{Binding Path=bosaFileProgressValue, UpdateSourceTrigger=PropertyChanged}" Maximum="{Binding Path=bosaFileMaxValue, UpdateSourceTrigger=PropertyChanged}" />
+        <WrapPanel>
+            <Label Content="Inprogress bosa serial :"/>
+            <Label Content="{Binding Path=bosaSerialProgressValue, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Content="/"/>
+            <Label Content="{Binding Path=bosaSerialMaxValue, UpdateSourceTrigger=PropertyChanged}"/>
+        </WrapPanel>
+        <ProgressBar Height="5" Value="{Binding Path=bosaSerialProgressValue, UpdateSourceTrigger=PropertyChanged}" Maximum="{Binding Path=bosaSerialMaxValue, UpdateSourceTrigger=PropertyChanged}" />
+        <WrapPanel>
+            <Label Content="Total Time:"/>
+            <Label Content="{Binding Path=totalTime, UpdateSourceTrigger=PropertyChanged}"/>
+        </WrapPanel>
+
+    </StackPanel>
+    
+</Window>

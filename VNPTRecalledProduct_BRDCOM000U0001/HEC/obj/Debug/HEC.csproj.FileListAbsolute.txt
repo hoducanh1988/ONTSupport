@@ -1,0 +1,17 @@
+C:\Users\chien\source\repos\VNPTRecalledProduct\HEC\bin\Debug\HEC.dll
+C:\Users\chien\source\repos\VNPTRecalledProduct\HEC\bin\Debug\HEC.pdb
+C:\Users\chien\source\repos\VNPTRecalledProduct\HEC\obj\Debug\HEC.csproj.CoreCompileInputs.cache
+C:\Users\chien\source\repos\VNPTRecalledProduct\HEC\obj\Debug\HEC.dll
+C:\Users\chien\source\repos\VNPTRecalledProduct\HEC\obj\Debug\HEC.pdb
+C:\Users\chien\source\repos\VNPTRecalledProduct\VNPTRecalledProduct\bin\Debug\HEC.dll
+C:\Users\chien\source\repos\VNPTRecalledProduct\VNPTRecalledProduct\bin\Debug\HEC.pdb
+C:\Users\chien\source\repos\02.ONT\Support\VNPTRecalledProduct\VNPTRecalledProduct\bin\Debug\HEC.dll
+C:\Users\chien\source\repos\02.ONT\Support\VNPTRecalledProduct\VNPTRecalledProduct\bin\Debug\HEC.pdb
+C:\Users\chien\source\repos\02.ONT\Support\VNPTRecalledProduct\HEC\obj\Debug\HEC.csproj.CoreCompileInputs.cache
+C:\Users\chien\source\repos\02.ONT\Support\VNPTRecalledProduct\HEC\obj\Debug\HEC.dll
+C:\Users\chien\source\repos\02.ONT\Support\VNPTRecalledProduct\HEC\obj\Debug\HEC.pdb
+G:\Backup_Tool_Test\repos\02.ONT\Support\VNPTRecalledProduct_BRDCOM000U0001\VNPTRecalledProduct\bin\Debug\HEC.dll
+G:\Backup_Tool_Test\repos\02.ONT\Support\VNPTRecalledProduct_BRDCOM000U0001\VNPTRecalledProduct\bin\Debug\HEC.pdb
+G:\Backup_Tool_Test\repos\02.ONT\Support\VNPTRecalledProduct_BRDCOM000U0001\HEC\obj\Debug\HEC.csproj.CoreCompileInputs.cache
+G:\Backup_Tool_Test\repos\02.ONT\Support\VNPTRecalledProduct_BRDCOM000U0001\HEC\obj\Debug\HEC.dll
+G:\Backup_Tool_Test\repos\02.ONT\Support\VNPTRecalledProduct_BRDCOM000U0001\HEC\obj\Debug\HEC.pdb

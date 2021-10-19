@@ -1,0 +1,25 @@
+﻿<Window x:Class="VNPTRecalledProduct.SupportWindow.OutputTestLed"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VNPTRecalledProduct.SupportWindow"
+        mc:Ignorable="d"
+        Title="Kiểm tra LED" Height="600" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
+
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        
+        <ScrollViewer>
+            <StackPanel x:Name="mainViewer"/>
+        </ScrollViewer>
+        <TextBlock Margin="5" Grid.Row="1" FontSize="13" TextWrapping="Wrap" Text="Quan sát trạng thái LED  trên sản phẩm. Nếu đúng với trạng thái hiển thị trên phần mềm, click chọn 'ĐÚNG'. Ngược lại click chọn 'SAI'."/>
+        <Button  Grid.Row="2" Click="Button_Click" Margin="5,5,0,5" Width="100" FontSize="15" FontWeight="SemiBold" HorizontalAlignment="Right" Content="OK"/>
+
+    </Grid>
+    
+</Window>

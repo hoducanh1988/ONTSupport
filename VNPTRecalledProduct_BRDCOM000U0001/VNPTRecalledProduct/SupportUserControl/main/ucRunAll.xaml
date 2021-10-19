@@ -1,0 +1,280 @@
+﻿<UserControl x:Class="VNPTRecalledProduct.SupportUserControl.ucRunAll"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:VNPTRecalledProduct.SupportUserControl"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+
+        <Style TargetType="{x:Type TabItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Grid>
+                            <Border  Name="Border" Margin="0,0,-4,0" BorderThickness="1,1,1,1" CornerRadius="2,12,0,0" >
+                                <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="12,2,12,2" RecognizesAccessKey="True"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Panel.ZIndex" Value="100"/>
+                                <Setter TargetName="Border" Property="Background" Value="#43d854" />
+                                <Setter TargetName="Border" Property="BorderThickness" Value="1,1,1,0" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter TargetName="Border" Property="Background" Value="#FFEEEEEE" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="Orange" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="CheckBox">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsChecked}" Value="True">
+                    <Setter Property="FontWeight" Value="SemiBold"/>
+                    <Setter Property="Foreground" Value="Blue"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+    </UserControl.Resources>
+
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="320"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0">
+
+            <Button Click="Button_Click" Width="290" HorizontalAlignment="Left" Margin="0,0,0,0" Height="70" FontSize="25" FontWeight="SemiBold" Content="Start">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}" Value="Stop">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=showStartButton}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+            <StackPanel Margin="0,20,0,0" Grid.Row="2">
+                <Label HorizontalAlignment="Left" Margin="0,5,0,0" FontSize="13" Content="Total result:"/>
+                <Label HorizontalAlignment="Left" Margin="0,-15,0,0" FontSize="50" FontWeight="SemiBold" Content="{Binding Path=totalResult, UpdateSourceTrigger=PropertyChanged}">
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}" Value="Waiting...">
+                                    <Setter Property="Foreground" Value="Orange"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}" Value="Passed">
+                                    <Setter Property="Foreground" Value="Lime"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}" Value="Failed">
+                                    <Setter Property="Foreground" Value="Red"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+                <TextBlock Margin="0,-5,0,0" FontSize="17" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Path=inputBarcode, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <WrapPanel>
+                    <Label Content="Progress:"/>
+                    <Label Content="{Binding Path=testedItemCount, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label Content="/"/>
+                    <Label Content="{Binding Path=totalTestItem, UpdateSourceTrigger=PropertyChanged}"/>
+                </WrapPanel>
+
+                <ProgressBar Value="{Binding Path=testedItemCount, UpdateSourceTrigger=PropertyChanged}" Maximum="{Binding Path=totalTestItem, UpdateSourceTrigger=PropertyChanged}" Height="10" />
+                <WrapPanel>
+                    <Label Content="Item Error Rate (%) :"/>
+                    <Label Content="{Binding Path=errorRate, UpdateSourceTrigger=PropertyChanged}"/>
+                </WrapPanel>
+
+                <WrapPanel>
+                    <Label Content="Total time : "/>
+                    <Label Content="{Binding Path=totalTime, UpdateSourceTrigger=PropertyChanged}"/>
+                </WrapPanel>
+
+
+                <Label Margin="0,30,0,0" Content="Quantity Counter :"/>
+                <WrapPanel>
+                    <Label Content="Total number of products tested: "/>
+                    <Label Content="{Binding Path=productTested, UpdateSourceTrigger=PropertyChanged}"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <Label Content="Passed (pcs): "/>
+                    <Label Content="{Binding Path=productPassed, UpdateSourceTrigger=PropertyChanged}"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <Label Content="Failed (pcs): "/>
+                    <Label Content="{Binding Path=productFailed, UpdateSourceTrigger=PropertyChanged}"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <Label Content="Product Error Rate (%): "/>
+                    <Label Content="{Binding Path=productErrorRate, UpdateSourceTrigger=PropertyChanged}"/>
+                </WrapPanel>
+                
+
+            </StackPanel>
+        </StackPanel>
+
+        <GridSplitter Grid.Column="1" Background="White" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel>
+                <CheckBox Visibility="Collapsed" Margin="0,0,0,0" Content="Tự động kiểm tra khi ping mạng được tới địa chỉ IP của sản phẩm." IsChecked="{Binding Path=autoStart, UpdateSourceTrigger=PropertyChanged}" />
+                <CheckBox Margin="0,7,0,0" Content="Vẫn tiếp tục kiểm tra bài test tiếp theo khi bài test hiện tại bị lỗi." IsChecked="{Binding Path=continueCheck, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+            
+            <TabControl Grid.Row="1" TabStripPlacement="Bottom">
+                <TabControl.Resources>
+                    <Style TargetType="{x:Type TabPanel}">
+                        <Setter Property="HorizontalAlignment" Value="Center" />
+                    </Style>
+                </TabControl.Resources>
+
+                <TabItem>
+                    <TabItem.Header>
+                        <Label Content="Item Result"/>
+                    </TabItem.Header>
+
+                    <DataGrid Margin="0,0,0,0" x:Name="dg_result" 
+                                              ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
+                                              CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserReorderColumns="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                                              GridLinesVisibility="None"
+                                              HeadersVisibility="Column"
+                                              BorderThickness="1,1,1,1"
+                                              SelectionUnit="FullRow" SelectionMode="Extended"
+                                              >
+
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Refresh" Click="MenuItem_Click"/>
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+
+                        <DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                                <Setter Property="BorderBrush" Value="#FFB3B3B3"/>
+                                <Setter Property="FontSize" Value="13"/>
+                                <Setter Property="FontWeight" Value="Normal"/>
+                                <Setter Property="Height" Value="25"/>
+                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGrid.CellStyle>
+
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="FontSize" Value="13"/>
+                                <Setter Property="Height" Value="40"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="BorderBrush" Value="#FFB3B3B3"/>
+                                <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                                <Setter Property="Padding" Value="3,0,0,0"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Index" Width="0.2*" Binding="{Binding Index, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            <DataGridTextColumn IsReadOnly="True" Header="Test item name" Width="0.75*" Binding="{Binding itemName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontWeight="SemiBold"/>
+                            <DataGridComboBoxColumn x:Name="cbb_ischeck" Header="Actived" Width="0.3*" SelectedItemBinding="{Binding isCheck, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            <DataGridTextColumn IsReadOnly="True" Header="Setting value" Width="*" Binding="{Binding itemInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            <DataGridTextColumn IsReadOnly="True" Header="Actual value" Width="0.7*" Binding="{Binding itemOutput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            <DataGridTextColumn IsReadOnly="True" Header="Result" Width="0.3*" Binding="{Binding itemResult, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                <DataGridTextColumn.CellStyle>
+                                    <Style TargetType="DataGridCell">
+                                        <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                                        <Setter Property="BorderBrush" Value="#FFB3B3B3"/>
+                                        <Setter Property="FontSize" Value="15"/>
+                                        <Setter Property="FontWeight" Value="SemiBold"/>
+                                        <Setter Property="Height" Value="25"/>
+                                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                        <Setter Property="Foreground" Value="Black"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=itemResult}" Value="Waiting...">
+                                                <Setter Property="Foreground" Value="Orange"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Path=itemResult}" Value="Passed">
+                                                <Setter Property="Foreground" Value="Lime"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Path=itemResult}" Value="Failed">
+                                                <Setter Property="Foreground" Value="Red"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGridTextColumn.CellStyle>
+                            </DataGridTextColumn>
+
+                        </DataGrid.Columns>
+
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Setter Property="Foreground" Value="Black"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding itemResult}" Value="Failed">
+                                        <Setter Property="Foreground" Value="Red"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding isCheck}" Value="Yes">
+                                        <Setter Property="Background" Value="White"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding isCheck}" Value="No">
+                                        <Setter Property="Background" Value="#c7c7c7"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.RowStyle>
+
+                    </DataGrid>
+
+                </TabItem>
+
+                <TabItem Visibility="Collapsed">
+                    <TabItem.Header>
+                        <Label Content="Log system"/>
+                    </TabItem.Header>
+
+                    <ScrollViewer x:Name="scr_system">
+                        <RichTextBox IsReadOnly="True" Margin="0,0,1,2" Padding="5,5,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                            <FlowDocument>
+                                <Paragraph>
+                                    <Run Text="{Binding Path=logSystem, UpdateSourceTrigger=PropertyChanged}"/>
+                                </Paragraph>
+                            </FlowDocument>
+                        </RichTextBox>
+                    </ScrollViewer>
+                </TabItem>
+            </TabControl>
+        </Grid>
+        
+    </Grid>
+    
+</UserControl>

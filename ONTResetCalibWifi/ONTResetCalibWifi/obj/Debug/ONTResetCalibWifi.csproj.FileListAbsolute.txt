@@ -1,0 +1,14 @@
+C:\Users\chien\source\repos\ONTResetCalibWifi\ONTResetCalibWifi\obj\Debug\MainWindow.g.cs
+C:\Users\chien\source\repos\ONTResetCalibWifi\ONTResetCalibWifi\obj\Debug\App.g.cs
+C:\Users\chien\source\repos\ONTResetCalibWifi\ONTResetCalibWifi\obj\Debug\MainWindow.baml
+C:\Users\chien\source\repos\ONTResetCalibWifi\ONTResetCalibWifi\obj\Debug\ONTResetCalibWifi.Properties.Resources.resources
+C:\Users\chien\source\repos\ONTResetCalibWifi\ONTResetCalibWifi\obj\Debug\ONTResetCalibWifi.csproj.GenerateResource.cache
+C:\Users\chien\source\repos\ONTResetCalibWifi\ONTResetCalibWifi\obj\Debug\ONTResetCalibWifi.csproj.CoreCompileInputs.cache
+C:\Users\chien\source\repos\ONTResetCalibWifi\ONTResetCalibWifi\bin\Debug\ONTResetCalibWifi_Ver1.0.0.0.exe.config
+C:\Users\chien\source\repos\ONTResetCalibWifi\ONTResetCalibWifi\bin\Debug\ONTResetCalibWifi_Ver1.0.0.0.exe
+C:\Users\chien\source\repos\ONTResetCalibWifi\ONTResetCalibWifi\bin\Debug\ONTResetCalibWifi_Ver1.0.0.0.pdb
+C:\Users\chien\source\repos\ONTResetCalibWifi\ONTResetCalibWifi\obj\Debug\ONTResetCalibWifi_Ver1.0.0.0_MarkupCompile.cache
+C:\Users\chien\source\repos\ONTResetCalibWifi\ONTResetCalibWifi\obj\Debug\ONTResetCalibWifi_Ver1.0.0.0_MarkupCompile.lref
+C:\Users\chien\source\repos\ONTResetCalibWifi\ONTResetCalibWifi\obj\Debug\ONTResetCalibWifi_Ver1.0.0.0.g.resources
+C:\Users\chien\source\repos\ONTResetCalibWifi\ONTResetCalibWifi\obj\Debug\ONTResetCalibWifi_Ver1.0.0.0.exe
+C:\Users\chien\source\repos\ONTResetCalibWifi\ONTResetCalibWifi\obj\Debug\ONTResetCalibWifi_Ver1.0.0.0.pdb

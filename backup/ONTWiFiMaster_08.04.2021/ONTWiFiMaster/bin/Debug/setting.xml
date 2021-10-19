@@ -1,0 +1,33 @@
+﻿<SettingDataBinding xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <serialPortName>COM36</serialPortName>
+  <loginUser>admin</loginUser>
+  <loginPassword>VnT3ch@dm1n</loginPassword>
+  <instrumentType>MT8870A</instrumentType>
+  <gpibAddress>TCPIP0::192.168.1.5::inst0::INSTR</gpibAddress>
+  <Port1>PORT1</Port1>
+  <Port2>PORT2</Port2>
+  <portTransmitter1>PORT1</portTransmitter1>
+  <portReceiver1>PORT3</portReceiver1>
+  <powerTransmit1>-20</powerTransmit1>
+  <portTransmitter2>PORT2</portTransmitter2>
+  <portReceiver2>PORT4</portReceiver2>
+  <powerTransmit2>-20</powerTransmit2>
+  <Connector1>0</Connector1>
+  <Connector2>0</Connector2>
+  <calibFreq>true</calibFreq>
+  <calib2G>true</calib2G>
+  <calib5G>true</calib5G>
+  <writeBIN>true</writeBIN>
+  <saveFlash>true</saveFlash>
+  <checkRegister>true</checkRegister>
+  <target2G>19.5</target2G>
+  <target5G>18</target5G>
+  <lowerLimit>10</lowerLimit>
+  <upperLimit>30</upperLimit>
+  <testPer2G>false</testPer2G>
+  <testPer5G>false</testPer5G>
+  <testSignal2G>true</testSignal2G>
+  <testSignal5G>true</testSignal5G>
+  <measureTime>3</measureTime>
+  <Difference>0.5</Difference>
+</SettingDataBinding>

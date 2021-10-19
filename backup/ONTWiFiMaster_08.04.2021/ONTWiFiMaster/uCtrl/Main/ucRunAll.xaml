@@ -1,0 +1,182 @@
+﻿<UserControl x:Class="ONTWiFiMaster.uCtrl.ucRunAll"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ONTWiFiMaster.uCtrl"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Background="White">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="3"/>
+            <RowDefinition Height="110"/>
+        </Grid.RowDefinitions>
+
+        <Border BorderBrush="#777777" BorderThickness="0,0,0,1">
+            <Grid Background="#efffa8" x:Name="gd_Main">
+                <StackPanel Margin="20,20,0,0">
+                    <StackPanel.Resources>
+                        <Style TargetType="Label">
+                            <Setter Property="FontSize" Value="15"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <Label FontWeight="SemiBold" Content="Các bước đo dữ liệu mạch master cần thực hiện theo thứ tự dưới đây:"/>
+                    <Label Content="1. Đo suy hao dây RF (bắt buộc)."/>
+                    <Label Content="2. Calib wifi (bắt buộc)."/>
+                    <Label Content="3. Verify tín hiệu wifi (bắt buộc)."/>
+                    <Label Content="4. Đo dữ liệu mạch master (bắt buộc)."/>
+                    <Label Foreground="Red" Content="Chú ý:"/>
+                    <TextBlock FontSize="15" TextWrapping="Wrap" Margin="5,0,0,0" Foreground="Red" >
+                        - Sau khi đo xong dữ liệu mạch master số 1, phải tắt phần mềm đi bật lại để đo dữ liệu mạch master số 2
+                        (nếu không thay đổi hoặc tháo dây RF thì không cần đo lại suy hao RF). 
+                    </TextBlock>
+                    <Label Foreground="Red" Content="- Mạch master phải pass qua bước calib wifi và verify tín hiệu wifi mới có thể đo được dữ liệu master."/>
+                </StackPanel>
+                
+                <Image HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="300" Height="100" Source="/Asset/Image/VNPT.png"/>
+            </Grid>
+        </Border>
+
+        <GridSplitter Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="Transparent"/>
+
+        <Border Margin="0,2,0,0" Grid.Row="2" BorderBrush="#777777" BorderThickness="1,1,1,1">
+            <Grid Background="#EEEEEE">
+                <Grid.Resources>
+
+                    <Style TargetType="Border" x:Key="step_border">
+                        <Setter Property="Margin" Value="0,-15,0,0"/>
+                        <Setter Property="Background" Value="#2d94c4"/>
+                        <Setter Property="CornerRadius" Value="10"/>
+                        <Setter Property="Width" Value="180"/>
+                        <Setter Property="Height" Value="50"/>
+                        <EventSetter Event="MouseDown" Handler="Border_MouseDown"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#59caff" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+
+                    <Style TargetType="TextBlock" x:Key="step_textblock">
+                        <Setter Property="Padding" Value="2,2,2,2"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                        <Setter Property="FontSize" Value="15"/>
+                        <Setter Property="FontWeight" Value="SemiBold"/>
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="TextWrapping" Value="Wrap"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="FontWeight" Value="Bold" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+
+                </Grid.Resources>
+
+
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label FontSize="15" Margin="0,-5,0,0" FontWeight="SemiBold" Grid.ColumnSpan="4" VerticalAlignment="Top" HorizontalAlignment="Left" Content="Các bước cần thực hiện đo dữ liệu mạch master:"/>
+                <ProgressBar Margin="0,0,0,0" Background="#2d94c4" Foreground="#16c75d" Maximum="{Binding Path=progressMax, UpdateSourceTrigger=PropertyChanged}" Value="{Binding Path=progressValue, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="4" Height="10" />
+                <Grid Margin="0,15,0,0" Grid.Column="0">
+                    <Border Tag="cable">
+                        <Border.Style>
+                            <Style TargetType="Border" BasedOn="{StaticResource step_border}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=showIndex}" Value="1">
+                                        <Setter Property="Background" Value="#e6b12c"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=cableResult}" Value="Passed">
+                                        <Setter Property="Background" Value="#16c75d"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=cableResult}" Value="Failed">
+                                        <Setter Property="Background" Value="#fa7602"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <TextBlock  Style="{StaticResource step_textblock}" Text="1. Đo suy hao dây RF"/>
+                    </Border>
+                    <Label FontSize="15" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="{Binding Path=cableResult, UpdateSourceTrigger=PropertyChanged}"/>
+
+                </Grid>
+                <Grid Margin="0,15,0,0" Grid.Column="1">
+                    <Border Tag="calib">
+                        <Border.Style>
+                            <Style TargetType="Border" BasedOn="{StaticResource step_border}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=showIndex}" Value="2">
+                                        <Setter Property="Background" Value="#e6b12c"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=calibResult}" Value="Passed">
+                                        <Setter Property="Background" Value="#16c75d"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=calibResult}" Value="Failed">
+                                        <Setter Property="Background" Value="#fa7602"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        
+                        <TextBlock Style="{StaticResource step_textblock}" Text="2. Calib WiFi"/>
+                    </Border>
+                    <Label FontSize="15" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="{Binding Path=calibResult, UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid>
+                <Grid Margin="0,15,0,0" Grid.Column="2">
+                    <Border Tag="verify">
+                        <Border.Style>
+                            <Style TargetType="Border" BasedOn="{StaticResource step_border}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=showIndex}" Value="3">
+                                        <Setter Property="Background" Value="#e6b12c"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=verifyResult}" Value="Passed">
+                                        <Setter Property="Background" Value="#16c75d"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=verifyResult}" Value="Failed">
+                                        <Setter Property="Background" Value="#fa7602"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <TextBlock Style="{StaticResource step_textblock}" Text="3. Verify tín hiệu WiFi"/>
+                    </Border>
+                    <Label FontSize="15" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="{Binding Path=verifyResult,UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid>
+                <Grid Margin="0,15,0,0" Grid.Column="3">
+                    <Border Tag="master">
+                        <Border.Style>
+                            <Style TargetType="Border" BasedOn="{StaticResource step_border}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=showIndex}" Value="4">
+                                        <Setter Property="Background" Value="#e6b12c"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=masterResult}" Value="Passed">
+                                        <Setter Property="Background" Value="#16c75d"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=masterResult}" Value="Failed">
+                                        <Setter Property="Background" Value="#fa7602"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        
+                        <TextBlock Style="{StaticResource step_textblock}" Text="4. Đo dữ liệu master"/>
+                    </Border>
+                    <Label FontSize="15" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="{Binding Path=masterResult, UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid>
+            </Grid>
+
+        </Border>
+
+    </Grid>
+</UserControl>

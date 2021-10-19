@@ -1,0 +1,88 @@
+
++++++++++++ Load File Config Register
+        5A      8384
+        59      8485
+        5B      C083
+        60      8384
+        5F      8485
+        61      C083
+       143      C7C4
+       144      C0C7
+       148      C4C4
+       149      40C4
+       14D      C3C5
+       14E      00C3
+       157      8383
+       158      C083
+       15C      8483
+       15D      C084
+       161      C181
+       162      C0C1
+       166      C2C2
+       167      C0C2
+       16B      C3C4
+       16C      40C3
+       170      80C1
+       171      4080
+       175      8180
+       176      0081
+       17F      C181
+       180      C0C1
+       184      84C1
+       185      C084
+       189      80C1
+       18A      C080
+       18E      80C1
+       18F      0080
+... result: Passed
+... time elapsed: 0 ms
+
++++++++++++ Get Mac Ethernet
+... result: Passed
+... time elapsed: 103 ms
+
++++++++++++ Set Wifi Register To Default
+... result: Passed
+... time elapsed: 1269 ms
+
++++++++++++ Save Flash 
+... result: Passed
+... time elapsed: 41244 ms
+
++++++++++++ Verify Wifi Register After Save Flash
+        5A      8384      8384
+        59      8485      8485
+        5B      C083      C083
+        60      8384      8384
+        5F      8485      8485
+        61      C083      C083
+       143      C7C4      C7C4
+       144      C0C7      C0C7
+       148      C4C4      C4C4
+       149      40C4      40C4
+       14D      C3C5      C3C5
+       14E      00C3      00C3
+       157      8383      8383
+       158      C083      C083
+       15C      8483      8483
+       15D      C084      C084
+       161      C181      C181
+       162      C0C1      C0C1
+       166      C2C2      C2C2
+       167      C0C2      C0C2
+       16B      C3C4      C3C4
+       16C      40C3      40C3
+       170      80C1      80C1
+       171      4080      4080
+       175      8180      8180
+       176      0081      0081
+       17F      C181      C181
+       180      C0C1      C0C1
+       184      84C1      84C1
+       185      C084      C084
+       189      80C1      80C1
+       18A      C080      C080
+       18E      80C1      80C1
+       18F      0080      0080
+... result: Passed
+... time elapsed: 1351 ms

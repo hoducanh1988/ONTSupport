@@ -1,0 +1,3 @@
+ssid_name=C5482E
+wifi_password=
+sleep=5000

@@ -1,0 +1,5 @@
+Frequency,Antena,Attenuator,UpperLimit,LowerLimit
+2412,1,0,20,-15
+5180,1,0,20,-25
+2412,2,0,20,-15
+5180,2,0,20,-25

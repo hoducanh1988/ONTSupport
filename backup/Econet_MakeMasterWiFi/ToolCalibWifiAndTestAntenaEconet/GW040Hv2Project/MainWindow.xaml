@@ -1,0 +1,763 @@
+﻿<Window x:Class="GW040Hv2Project.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GW040Hv2Project"
+        mc:Ignorable="d"
+        Closing="Window_Closing"
+        Title="MainWindow" Height="730" Width="1100" WindowStartupLocation="CenterScreen" Style="{StaticResource customWindow}">
+
+    <Window.Resources>
+        
+        <Style TargetType="{x:Type TabItem}" x:Key="custom_tabitem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Grid>
+                            <Border  Name="Border" Margin="0,0,-4,0" BorderThickness="1,1,1,1" CornerRadius="2,12,0,0" >
+                                <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="12,2,12,2" RecognizesAccessKey="True"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Panel.ZIndex" Value="100"/>
+                                <!--<Setter TargetName="Border" Property="Background" Value="#43d854" />-->
+                                <Setter TargetName="Border" Property="Background" Value="Orange" />
+                                <Setter TargetName="Border" Property="BorderThickness" Value="1,1,1,0" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter TargetName="Border" Property="Background" Value="#FFEEEEEE" />
+                            </Trigger>
+                            <!--<Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="Orange" />
+                            </Trigger>-->
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Border Background="#5c694f" CornerRadius="2" MouseDown="Border_MouseDown" BorderBrush="{StaticResource colorBorder}" BorderThickness="0.5">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Background="#FFFFFF">
+                <Label Name="txtVersion" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="Black" FontSize="12" Content="Version:  - Build time:  - Copyright of VNPT Technology 2020"/>
+                <Label MouseDown="Label_MouseDown" Width="50" HorizontalContentAlignment="Right" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Black" FontSize="17" Margin="0,-5,5,0" Content="X"/>
+            </Grid>
+            
+            <Grid Grid.Row="1" Background="#F5F5F5">
+                <Menu>
+                    <MenuItem FontSize="13" Height="24" Header="Log File" FontWeight="SemiBold">
+                        <MenuItem Header="open Log Folder" Click="MenuItem_Click"/>
+                        <Separator/>
+                        <MenuItem Header="Exit" Click="MenuItem_Click"></MenuItem>
+                    </MenuItem>
+                    <MenuItem FontSize="13" Height="24" Header="Setting" FontWeight="SemiBold">
+                        <MenuItem Header="Cấu hình ONT" FontWeight="Bold" Click="MenuItem_Click"/>
+                        <MenuItem Header="Cài đặt máy đo wifi" FontWeight="Bold" Click="MenuItem_Click"/>
+                        <MenuItem x:Name="miAtten" Header="Tính suy hao trạm" FontWeight="Bold" Click="MenuItem_Click"/>
+                        <MenuItem Header="Tính suy hao dây cable RF" FontWeight="Bold" Click="MenuItem_Click"/>
+                        <Separator/>
+                        <MenuItem Header="Thiết lập tiêu chuẩn" Click="MenuItem_Click"/>
+                        <MenuItem Header="Thiết lập bài test" Click="MenuItem_Click"/>
+                        <MenuItem x:Name="miMaster" Header="Thiết lập master" Click="MenuItem_Click"/>
+                        <!--<Separator/>-->
+                        <!--<MenuItem x:Name="miReset" Header="Thiết lập giá trị thanh ghi" Click="MenuItem_Click"/>-->
+                        <!--<MenuItem x:Name="miMode" Header="Mode RD" Click="MenuItem_Click"/>-->
+                    </MenuItem>
+                    <MenuItem  Click="MenuItem_Click" FontSize="13" Height="24" Header="About" FontWeight="SemiBold"/>
+                </Menu>
+            </Grid>
+            
+            <Grid Grid.Row="2" Background="Transparent">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <WrapPanel Margin="0,10,0,0" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center">
+                    <Label Foreground="White" FontSize="22" FontWeight="SemiBold" Content="{Binding Path=APPTITLE, UpdateSourceTrigger=PropertyChanged}" />
+                                      <Label x:Name="lbl_counted" Foreground="White" Margin="50,0,0,0" FontSize="22" FontWeight="SemiBold" Content="{Binding Path=CALIBCOUNTED, UpdateSourceTrigger=PropertyChanged}"/>
+                </WrapPanel>
+                
+                
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3"/>
+                        <ColumnDefinition Width="300"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
+                        <WrapPanel Height="30" VerticalAlignment="Top" HorizontalAlignment="Right">
+                            <Label Foreground="White" Content="{Binding Path=RDContent, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="13" FontWeight="SemiBold"/>
+                            <Label Foreground="White" Content="     Time Total (s): " FontSize="13" FontWeight="SemiBold"/>
+                            <Label Content="{Binding Path=TimeCount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="15" FontWeight="Bold" Foreground="White"/>
+
+                            <Label Foreground="White" Content="         MAC Address: " FontSize="13" FontWeight="SemiBold"/>
+                            <Label Content="{Binding Path=MACADDRESS, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="15" FontWeight="Bold" Foreground="White"/>
+                        </WrapPanel>
+                        
+                        <TabControl Margin="10,35,0,5" TabStripPlacement="Bottom">
+                        
+                            <!--LOG SYSTEM-->
+                            <TabItem Style="{StaticResource custom_tabitem}">
+                                <TabItem.Header>
+                                    <Grid Height="30">
+                                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" Text="LOG SYSTEM" FontWeight="SemiBold"/>
+                                    </Grid>
+                                </TabItem.Header>
+
+                                <ScrollViewer x:Name="_scrollViewer" >
+                                    <RichTextBox  Background="#FFFFFF" BorderThickness="0" IsReadOnly="True" Block.LineHeight="1" Padding="0,5,0,0">
+                                        <FlowDocument PageHeight="180">
+                                            <Paragraph>
+                                                <Run Foreground="Black" FontWeight="Normal" Text="{Binding Path=LOGSYSTEM, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                            </Paragraph>
+                                        </FlowDocument>
+                                    </RichTextBox>
+                                </ScrollViewer>
+                            </TabItem>
+
+
+                            <!--LOG VERIFY WIFI RX-->
+                            <TabItem>
+                                <TabItem.Style>
+                                    <Style TargetType="TabItem" BasedOn="{StaticResource custom_tabitem}">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=STATION}" Value="Sau đóng vỏ">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TabItem.Style>
+                                <TabItem.Header>
+                                    <Grid Height="30">
+                                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" Text="LOG RX" FontWeight="SemiBold"/>
+                                    </Grid>
+                                </TabItem.Header>
+
+                                <DataGrid Margin="5" x:Name="datagridRX" 
+                                              Background="White"
+                                              ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
+                                              CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserReorderColumns="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                                              GridLinesVisibility="None"
+                                              HeadersVisibility="Column"
+                                              BorderThickness="0,0,0,0"
+                                              SelectionUnit="FullRow" SelectionMode="Extended"
+                                              >
+
+                                    <DataGrid.CellStyle>
+                                        <Style TargetType="DataGridCell">
+                                            <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                                            <Setter Property="BorderBrush" Value="#FFB3B3B3"/>
+                                            <Setter Property="FontSize" Value="15"/>
+                                            <Setter Property="FontWeight" Value="Normal"/>
+                                            <Setter Property="Height" Value="25"/>
+                                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                        </Style>
+                                    </DataGrid.CellStyle>
+
+                                    <DataGrid.ColumnHeaderStyle>
+                                        <Style TargetType="DataGridColumnHeader">
+                                            <Setter Property="FontSize" Value="13"/>
+                                            <Setter Property="Height" Value="40"/>
+                                            <Setter Property="FontWeight" Value="Bold"/>
+                                            <Setter Property="BorderBrush" Value="#FFB3B3B3"/>
+                                            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                                            <Setter Property="Padding" Value="3,0,0,0"/>
+                                        </Style>
+                                    </DataGrid.ColumnHeaderStyle>
+
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Range" Width="*" Binding="{Binding rangeFreq}"/>
+                                        <DataGridTextColumn Header="Anten" Width="*" Binding="{Binding Anten}"/>
+                                        <DataGridTextColumn Header="WIFI" Width="1.3*" Binding="{Binding wifiStandard}"/>
+                                        <DataGridTextColumn Header="RATE" Width="*" Binding="{Binding Rate}"/>
+                                        <DataGridTextColumn Header="BW" Width="*" Binding="{Binding Bandwidth}"/>
+                                        <DataGridTextColumn Header="CH" Width="*" Binding="{Binding Channel}"/>
+                                        <DataGridTextColumn Header="PwTransmit" Width="1.5*" Binding="{Binding transmitPower}"/>
+                                        <DataGridTextColumn Header="Sent" Width="1.5*" Binding="{Binding Sent}"/>
+                                        <DataGridTextColumn Header="Received" Width="1.5*" Binding="{Binding Received}"/>
+                                        <DataGridTextColumn Header="PER" Width="1.5*" Binding="{Binding Per}"/>
+                                        <DataGridTextColumn Header="Result" Width="*" Binding="{Binding Result}"/>
+                                    </DataGrid.Columns>
+
+                                    <DataGrid.RowStyle>
+                                        <Style TargetType="DataGridRow">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Result}" Value="FAIL">
+                                                    <Setter Property="Foreground" Value="Red"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </DataGrid.RowStyle>
+
+                                </DataGrid>
+
+                            </TabItem>
+
+                            <!--LOG VERIFY WIFI TX-->
+                            <TabItem>
+                                <TabItem.Style>
+                                    <Style TargetType="TabItem" BasedOn="{StaticResource custom_tabitem}">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=STATION}" Value="Sau đóng vỏ">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TabItem.Style>
+                                <TabItem.Header>
+                                    <Grid Height="30">
+                                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" Text="LOG TX" FontWeight="SemiBold"/>
+                                    </Grid>
+                                </TabItem.Header>
+
+                                <DataGrid Margin="5" x:Name="datagridTX" 
+                                              Background="White"
+                                              ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
+                                              CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserReorderColumns="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                                              GridLinesVisibility="None"
+                                              HeadersVisibility="Column"
+                                              BorderThickness="0,0,0,0"
+                                              SelectionUnit="FullRow" SelectionMode="Extended"
+                                              >
+
+                                    <DataGrid.CellStyle>
+                                        <Style TargetType="DataGridCell">
+                                            <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                                            <Setter Property="BorderBrush" Value="#FFB3B3B3"/>
+                                            <Setter Property="FontSize" Value="15"/>
+                                            <Setter Property="FontWeight" Value="Normal"/>
+                                            <Setter Property="Height" Value="25"/>
+                                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                        </Style>
+                                    </DataGrid.CellStyle>
+
+                                    <DataGrid.ColumnHeaderStyle>
+                                        <Style TargetType="DataGridColumnHeader">
+                                            <Setter Property="FontSize" Value="13"/>
+                                            <Setter Property="Height" Value="40"/>
+                                            <Setter Property="FontWeight" Value="Bold"/>
+                                            <Setter Property="BorderBrush" Value="#FFB3B3B3"/>
+                                            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                                            <Setter Property="Padding" Value="3,0,0,0"/>
+                                        </Style>
+                                    </DataGrid.ColumnHeaderStyle>
+
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Range" Width="*" Binding="{Binding rangeFreq}"/>
+                                        <DataGridTextColumn Header="Anten" Width="*" Binding="{Binding Anten}"/>
+                                        <DataGridTextColumn Header="WIFI" Width="1.3*" Binding="{Binding wifiStandard}"/>
+                                        <DataGridTextColumn Header="RATE" Width="*" Binding="{Binding Rate}"/>
+                                        <DataGridTextColumn Header="BW" Width="*" Binding="{Binding Bandwidth}"/>
+                                        <DataGridTextColumn Header="CH" Width="*" Binding="{Binding Channel}"/>
+                                        <DataGridTextColumn Header="PwLimit" Width="1.5*" Binding="{Binding powerStd}"/>
+                                        <DataGridTextColumn Header="Power" Width="1.5*" Binding="{Binding averagePower}"/>
+                                        <DataGridTextColumn Header="evmMAX" Width="1.5*" Binding="{Binding evmMAX}"/>
+                                        <DataGridTextColumn Header="EVM" Width="1.5*" Binding="{Binding Evm}"/>
+                                        <DataGridTextColumn Header="FreqErr" Width="*" Binding="{Binding centerFreqError}"/>
+                                        <DataGridTextColumn Header="Result" Width="*" Binding="{Binding Result}"/>
+                                    </DataGrid.Columns>
+
+                                    <DataGrid.RowStyle>
+                                        <Style TargetType="DataGridRow">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Result}" Value="FAIL">
+                                                    <Setter Property="Foreground" Value="Red"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </DataGrid.RowStyle>
+
+                                </DataGrid>
+
+                            </TabItem>
+                            
+                           
+                            <!--LOG UART-->
+                            <TabItem>
+                                <TabItem.Style>
+                                    <Style TargetType="TabItem" BasedOn="{StaticResource custom_tabitem}">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=STATION}" Value="Sau đóng vỏ">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TabItem.Style>
+                                
+                                <TabItem.Header>
+                                    <Grid Height="30">
+                                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" Text="LOG UART" FontWeight="SemiBold"/>
+                                    </Grid>
+                                </TabItem.Header>
+
+                                <ScrollViewer x:Name="_scrollViewer2" >
+                                    <RichTextBox  Background="#FFFFFF" BorderThickness="0" IsReadOnly="True" Block.LineHeight="1" Padding="0,5,0,0">
+                                        <FlowDocument PageHeight="180">
+                                            <Paragraph>
+                                                <Run Foreground="Black" FontWeight="Normal" Text="{Binding Path=LOGUART, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                            </Paragraph>
+                                        </FlowDocument>
+                                    </RichTextBox>
+                                </ScrollViewer>
+
+                            </TabItem>
+
+
+                            <!--LOG TELNET-->
+                            <TabItem>
+                                <TabItem.Style>
+                                    <Style TargetType="TabItem" BasedOn="{StaticResource custom_tabitem}">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=STATION}" Value="Sau đóng vỏ">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TabItem.Style>
+
+                                <TabItem.Header>
+                                    <Grid Height="30">
+                                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" Text="LOG TELNET" FontWeight="SemiBold"/>
+                                    </Grid>
+                                </TabItem.Header>
+
+                                <ScrollViewer x:Name="_scrollViewer5" >
+                                    <RichTextBox  Background="#FFFFFF" BorderThickness="0" IsReadOnly="True" Block.LineHeight="1" Padding="0,5,0,0">
+                                        <FlowDocument PageHeight="180">
+                                            <Paragraph>
+                                                <Run Foreground="Black" FontWeight="Normal" Text="{Binding Path=LOGTELNET, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                            </Paragraph>
+                                        </FlowDocument>
+                                    </RichTextBox>
+                                </ScrollViewer>
+
+                            </TabItem>
+
+
+                            <!--LOG INSTRUMENT-->
+                            <TabItem Style="{StaticResource custom_tabitem}">
+                                <TabItem.Header>
+                                    <Grid Height="30">
+                                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" Text="LOG INSTRUMENT" FontWeight="SemiBold"/>
+                                    </Grid>
+                                </TabItem.Header>
+
+                                <ScrollViewer x:Name="_scrollViewer3" >
+                                    <RichTextBox  Background="#FFFFFF" BorderThickness="0" IsReadOnly="True" Block.LineHeight="1" Padding="0,5,0,0">
+                                        <FlowDocument PageHeight="180">
+                                            <Paragraph>
+                                                <Run Foreground="Black" FontWeight="Normal" Text="{Binding Path=LOGINSTRUMENT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                            </Paragraph>
+                                        </FlowDocument>
+                                    </RichTextBox>
+                                </ScrollViewer>
+
+                            </TabItem>
+
+                            <!--LOG REGISTER-->
+                            <TabItem>
+                                <TabItem.Style>
+                                    <Style TargetType="TabItem" BasedOn="{StaticResource custom_tabitem}">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=STATION}" Value="Sau đóng vỏ">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TabItem.Style>
+                                
+                                <TabItem.Header>
+                                    <Grid Height="30">
+                                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" Text="LOG REGISTER" FontWeight="SemiBold"/>
+                                    </Grid>
+                                </TabItem.Header>
+
+                                <ScrollViewer x:Name="_scrollViewer4" >
+                                    <RichTextBox  Background="#FFFFFF" BorderThickness="0" IsReadOnly="True" Block.LineHeight="1" Padding="0,5,0,0">
+                                        <FlowDocument PageHeight="180">
+                                            <Paragraph>
+                                                <Run Foreground="Black" FontWeight="Normal" Text="{Binding Path=LOGREGISTER, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                            </Paragraph>
+                                        </FlowDocument>
+                                    </RichTextBox>
+                                </ScrollViewer>
+
+                            </TabItem>
+
+                            
+                            <!--ERROR SYSTEM-->
+                            <TabItem Style="{StaticResource custom_tabitem}">
+                                <TabItem.Header>
+                                    <Grid Height="30">
+                                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" Text="LOG ERROR" FontWeight="SemiBold"/>
+                                    </Grid>
+                                </TabItem.Header>
+
+                                <ScrollViewer x:Name="_scrollViewer1" >
+                                    <RichTextBox  Background="#FFFFFF" BorderThickness="0" IsReadOnly="True" Block.LineHeight="1" Padding="0,5,0,0">
+                                        <FlowDocument PageHeight="180">
+                                            <Paragraph>
+                                                <Run Foreground="Black" FontWeight="Normal" Text="{Binding Path=LOGERROR, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                            </Paragraph>
+                                        </FlowDocument>
+                                    </RichTextBox>
+                                </ScrollViewer>
+
+                            </TabItem>
+
+
+                        </TabControl>
+                       
+                    </Grid>
+
+                    <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="Transparent"/>
+
+                    <StackPanel Grid.Column="2" Margin="20,35,20,0">
+                        <Button Click="Button_Click" Content="{Binding Path=BUTTONCONTENT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Height="90" FontSize="35" FontWeight="SemiBold" Background="#F4A460">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=BUTTONCONTENT}" Value="START">
+                                            <Setter Property="IsEnabled" Value="True"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=BUTTONCONTENT}" Value="STOP">
+                                            <Setter Property="IsEnabled" Value="False"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                        <StackPanel Height="350">
+                            <StackPanel x:Name="spBefore">
+                                <Grid Margin="0,30,0,0">
+                                    <Label Foreground="White" HorizontalAlignment="Left" Content="Calibrate Tần Số" FontSize="15" FontWeight="SemiBold"/>
+                                    <Border Width="80" HorizontalAlignment="Right">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=CALIBFREQRESULT}" Value="NONE">
+                                                        <Setter Property="Background" Value="#E0E0E0"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=CALIBFREQRESULT}" Value="PASS">
+                                                        <Setter Property="Background" Value="Lime"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=CALIBFREQRESULT}" Value="FAIL">
+                                                        <Setter Property="Background" Value="Red"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=CALIBFREQRESULT}" Value="Wait">
+                                                        <Setter Property="Background" Value="{StaticResource colorTextWait}"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                    </Border>
+                                </Grid>
+                                <Grid Margin="0,10,0,0">
+                                    <Label Foreground="White" HorizontalAlignment="Left" Content="Calibrate Công Suất 2G" FontSize="15" FontWeight="SemiBold"/>
+                                    <Border Width="80" HorizontalAlignment="Right">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=CALIBPW2GRESULT}" Value="NONE">
+                                                        <Setter Property="Background" Value="#E0E0E0"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=CALIBPW2GRESULT}" Value="PASS">
+                                                        <Setter Property="Background" Value="Lime"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=CALIBPW2GRESULT}" Value="FAIL">
+                                                        <Setter Property="Background" Value="Red"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=CALIBPW2GRESULT}" Value="Wait">
+                                                        <Setter Property="Background" Value="{StaticResource colorTextWait}"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                    </Border>
+                                </Grid>
+                                <Grid Margin="0,10,0,0">
+                                    <Label Foreground="White" HorizontalAlignment="Left" Content="Calibrate Công Suất 5G" FontSize="15" FontWeight="SemiBold"/>
+                                    <Border Width="80" HorizontalAlignment="Right">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=CALIBPW5GRESULT}" Value="NONE">
+                                                        <Setter Property="Background" Value="#E0E0E0"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=CALIBPW5GRESULT}" Value="PASS">
+                                                        <Setter Property="Background" Value="Lime"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=CALIBPW5GRESULT}" Value="FAIL">
+                                                        <Setter Property="Background" Value="Red"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=CALIBPW5GRESULT}" Value="Wait">
+                                                        <Setter Property="Background" Value="{StaticResource colorTextWait}"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                    </Border>
+                                </Grid>
+                                <Grid Margin="0,10,0,0">
+                                    <Label Foreground="White" HorizontalAlignment="Left" Content="Write BIN Registers" FontSize="15" FontWeight="SemiBold"/>
+                                    <Border Width="80" HorizontalAlignment="Right">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=SAVEBIN}" Value="NONE">
+                                                        <Setter Property="Background" Value="#E0E0E0"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=SAVEBIN}" Value="PASS">
+                                                        <Setter Property="Background" Value="Lime"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=SAVEBIN}" Value="FAIL">
+                                                        <Setter Property="Background" Value="Red"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=SAVEBIN}" Value="Wait">
+                                                        <Setter Property="Background" Value="{StaticResource colorTextWait}"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                    </Border>
+                                </Grid>
+                                <Grid Margin="0,10,0,0">
+                                    <Label Foreground="White" HorizontalAlignment="Left" Content="Test Độ Nhạy Thu 2G" FontSize="15" FontWeight="SemiBold"/>
+                                    <Border Width="80" HorizontalAlignment="Right">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=TESTRX2GRESULT}" Value="NONE">
+                                                        <Setter Property="Background" Value="#E0E0E0"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=TESTRX2GRESULT}" Value="PASS">
+                                                        <Setter Property="Background" Value="Lime"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=TESTRX2GRESULT}" Value="FAIL">
+                                                        <Setter Property="Background" Value="Red"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=TESTRX2GRESULT}" Value="Wait">
+                                                        <Setter Property="Background" Value="{StaticResource colorTextWait}"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                    </Border>
+                                </Grid>
+                                
+                                <Grid Margin="0,10,0,0">
+                                    <Label Foreground="White" HorizontalAlignment="Left" Content="Test Độ Nhạy Thu 5G" FontSize="15" FontWeight="SemiBold"/>
+                                    <Border Width="80" HorizontalAlignment="Right">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=TESTRX5GRESULT}" Value="NONE">
+                                                        <Setter Property="Background" Value="#E0E0E0"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=TESTRX5GRESULT}" Value="PASS">
+                                                        <Setter Property="Background" Value="Lime"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=TESTRX5GRESULT}" Value="FAIL">
+                                                        <Setter Property="Background" Value="Red"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=TESTRX5GRESULT}" Value="Wait">
+                                                        <Setter Property="Background" Value="{StaticResource colorTextWait}"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                    </Border>
+                                </Grid>
+                                <Grid Margin="0,10,0,0">
+                                    <Label Foreground="White" HorizontalAlignment="Left" Content="Test Tín Hiệu 2G" FontSize="15" FontWeight="SemiBold"/>
+                                    <Border Width="80" HorizontalAlignment="Right">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=TESTTX2GRESULT}" Value="NONE">
+                                                        <Setter Property="Background" Value="#E0E0E0"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=TESTTX2GRESULT}" Value="PASS">
+                                                        <Setter Property="Background" Value="Lime"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=TESTTX2GRESULT}" Value="FAIL">
+                                                        <Setter Property="Background" Value="Red"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=TESTTX2GRESULT}" Value="Wait">
+                                                        <Setter Property="Background" Value="{StaticResource colorTextWait}"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                    </Border>
+                                </Grid>
+                                <Grid Margin="0,10,0,0">
+                                    <Label Foreground="White" HorizontalAlignment="Left" Content="Test Tín Hiệu 5G" FontSize="15" FontWeight="SemiBold"/>
+                                    <Border Width="80" HorizontalAlignment="Right">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=TESTTX5GRESULT}" Value="NONE">
+                                                        <Setter Property="Background" Value="#E0E0E0"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=TESTTX5GRESULT}" Value="PASS">
+                                                        <Setter Property="Background" Value="Lime"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=TESTTX5GRESULT}" Value="FAIL">
+                                                        <Setter Property="Background" Value="Red"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=TESTTX5GRESULT}" Value="Wait">
+                                                        <Setter Property="Background" Value="{StaticResource colorTextWait}"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                    </Border>
+                                </Grid>
+                            </StackPanel>
+
+                            <StackPanel x:Name="spAfter">
+                                <Grid Margin="0,30,0,0">
+                                    <Label HorizontalAlignment="Left" Content="Test Anten 1-2G" FontSize="15" FontWeight="SemiBold"/>
+                                    <Border Width="80" HorizontalAlignment="Right">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=TESTANTEN1RESULT2G}" Value="NONE">
+                                                        <Setter Property="Background" Value="#E0E0E0"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=TESTANTEN1RESULT2G}" Value="PASS">
+                                                        <Setter Property="Background" Value="Lime"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=TESTANTEN1RESULT2G}" Value="FAIL">
+                                                        <Setter Property="Background" Value="Red"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=TESTANTEN1RESULT2G}" Value="Wait">
+                                                        <Setter Property="Background" Value="{StaticResource colorTextWait}"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                    </Border>
+                                </Grid>
+                                <Grid Margin="0,10,0,0">
+                                    <Label HorizontalAlignment="Left" Content="Test Anten 1-5G" FontSize="15" FontWeight="SemiBold"/>
+                                    <Border Width="80" HorizontalAlignment="Right">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=TESTANTEN1RESULT5G}" Value="NONE">
+                                                        <Setter Property="Background" Value="#E0E0E0"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=TESTANTEN1RESULT5G}" Value="PASS">
+                                                        <Setter Property="Background" Value="Lime"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=TESTANTEN1RESULT5G}" Value="FAIL">
+                                                        <Setter Property="Background" Value="Red"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=TESTANTEN1RESULT5G}" Value="Wait">
+                                                        <Setter Property="Background" Value="{StaticResource colorTextWait}"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                    </Border>
+                                </Grid>
+
+                                <Grid Margin="0,10,0,0">
+                                    <Label HorizontalAlignment="Left" Content="Test Anten 2-2G" FontSize="15" FontWeight="SemiBold"/>
+                                    <Border Width="80" HorizontalAlignment="Right">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=TESTANTEN2RESULT2G}" Value="NONE">
+                                                        <Setter Property="Background" Value="#E0E0E0"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=TESTANTEN2RESULT2G}" Value="PASS">
+                                                        <Setter Property="Background" Value="Lime"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=TESTANTEN2RESULT2G}" Value="FAIL">
+                                                        <Setter Property="Background" Value="Red"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=TESTANTEN2RESULT2G}" Value="Wait">
+                                                        <Setter Property="Background" Value="{StaticResource colorTextWait}"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                    </Border>
+                                </Grid>
+
+                                <Grid Margin="0,10,0,0">
+                                    <Label HorizontalAlignment="Left" Content="Test Anten 2-5G" FontSize="15" FontWeight="SemiBold"/>
+                                    <Border Width="80" HorizontalAlignment="Right">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=TESTANTEN2RESULT5G}" Value="NONE">
+                                                        <Setter Property="Background" Value="#E0E0E0"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=TESTANTEN2RESULT5G}" Value="PASS">
+                                                        <Setter Property="Background" Value="Lime"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=TESTANTEN2RESULT5G}" Value="FAIL">
+                                                        <Setter Property="Background" Value="Red"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=TESTANTEN2RESULT5G}" Value="Wait">
+                                                        <Setter Property="Background" Value="{StaticResource colorTextWait}"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                    </Border>
+                                </Grid>
+                            </StackPanel>
+                        </StackPanel>
+                        
+                        <Grid Margin="0,5,0,0">
+                            <Label Foreground="White" Content="TOTAL" HorizontalAlignment="Center" FontSize="20" FontWeight="SemiBold"/>
+                            <Label Foreground="White" Margin="0,15,0,0" Content="{Binding Path=TOTALRESULT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Center" FontSize="70" FontWeight="Bold">
+                                <Label.Style>
+                                    <Style TargetType="Label">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="NONE">
+                                                <Setter Property="Foreground" Value="Black"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="PASS">
+                                                <Setter Property="Foreground" Value="Lime"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="FAIL">
+                                                <Setter Property="Foreground" Value="Red"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Path=TOTALRESULT}" Value="Wait">
+                                                <Setter Property="Foreground" Value="{StaticResource colorTextWait}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Label.Style>
+                            </Label>
+                        </Grid>
+
+                        <Label Margin="0,-15,0,0" FontSize="15" Foreground="Red" FontWeight="SemiBold" Content="{Binding Path=ERRORCODE, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Center"></Label>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

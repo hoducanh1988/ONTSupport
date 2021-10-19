@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSuyHaoXML", "TestSuyHaoXML\TestSuyHaoXML.csproj", "{1906A4D7-C6AB-4D0A-B2EE-072EE49D5605}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1906A4D7-C6AB-4D0A-B2EE-072EE49D5605}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1906A4D7-C6AB-4D0A-B2EE-072EE49D5605}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1906A4D7-C6AB-4D0A-B2EE-072EE49D5605}.Debug|x64.ActiveCfg = Debug|x64
+		{1906A4D7-C6AB-4D0A-B2EE-072EE49D5605}.Debug|x64.Build.0 = Debug|x64
+		{1906A4D7-C6AB-4D0A-B2EE-072EE49D5605}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1906A4D7-C6AB-4D0A-B2EE-072EE49D5605}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1906A4D7-C6AB-4D0A-B2EE-072EE49D5605}.Release|x64.ActiveCfg = Release|x64
+		{1906A4D7-C6AB-4D0A-B2EE-072EE49D5605}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E040DDAE-4007-4BFE-A227-392CDCEDCD5F}
+	EndGlobalSection
+EndGlobal

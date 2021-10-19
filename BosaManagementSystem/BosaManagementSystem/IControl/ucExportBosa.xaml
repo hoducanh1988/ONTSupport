@@ -1,0 +1,140 @@
+﻿<UserControl x:Class="BosaManagementSystem.IControl.ucExportBosa"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BosaManagementSystem.IControl"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="1100" Background="White">
+
+    <UserControl.Resources>
+        <local:BosaPathToBooleanConverter x:Key="BosaPathToBooleanConverter"/>
+        <Style TargetType="Button">
+            <EventSetter Event="Click" Handler="Button_Click"/>
+        </Style>
+
+        <Style TargetType="MenuItem">
+            <EventSetter Event="Click" Handler="MenuItem_Click"/>
+        </Style>
+
+    </UserControl.Resources>
+
+    <Grid Margin="5,0,5,0">
+        <Grid.Resources>
+
+            <Style TargetType="Label">
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="Width" Value="80"/>
+                <Setter Property="Height" Value="25"/>
+            </Style>
+
+            <Style TargetType="TextBox">
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="Width" Value="200"/>
+                <Setter Property="Height" Value="25"/>
+                <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                <Style.Triggers>
+                    <Trigger Property="IsFocused"  Value="True">
+                        <Setter Property="Background" Value="Yellow"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style TargetType="ComboBox">
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="Width" Value="200"/>
+                <Setter Property="Height" Value="25"/>
+                <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                <Setter Property="IsEditable" Value="True"/>
+                <Style.Triggers>
+                    <Trigger Property="IsFocused"  Value="True">
+                        <Setter Property="Background" Value="Yellow"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+        </Grid.Resources>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="90"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="1">
+            <WrapPanel>
+                <WrapPanel>
+                    <Label Content="Bosa serial: "/>
+                    <TextBox Text="{Binding Path=bosaSerial, UpdateSourceTrigger=PropertyChanged}" />
+                </WrapPanel>
+                <WrapPanel Margin="20,0,0,0">
+                    <Label Content="Ith (mA): "/>
+                    <TextBox Text="{Binding Path=Ith, UpdateSourceTrigger=PropertyChanged}"/>
+                </WrapPanel>
+                <WrapPanel Margin="20,0,0,0">
+                    <Label Content="Vbr (V): "/>
+                    <TextBox Text="{Binding Path=Vbr, UpdateSourceTrigger=PropertyChanged}"/>
+                </WrapPanel>
+            </WrapPanel>
+            <WrapPanel Margin="0,5,0,0">
+                <Label Content="Bosa file: "/>
+                <ComboBox x:Name="cbb_bosafile" Width="800" Text="{Binding Path=bosaFile, UpdateSourceTrigger=PropertyChanged}" />
+            </WrapPanel>
+            
+            <Button Tag="search" HorizontalAlignment="Left" Margin="0,5,0,5" Height="25" Width="100" Content="Search"/>
+        </StackPanel>
+
+        <DataGrid Grid.Row="0" x:Name="dgBosaInfo"
+                  Background="White"
+                  CanUserAddRows="False" CanUserDeleteRows="False"
+                  CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserReorderColumns="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                  GridLinesVisibility="None"
+                  HeadersVisibility="Column"
+                  BorderThickness="0,0,0,0"
+                  SelectionUnit="FullRow" SelectionMode="Extended">
+
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Tag="export" Header="Export to excel file"/>
+                    <Separator/>
+                    <MenuItem Tag="refresh" Header="Refresh"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                    <Setter Property="BorderBrush" Value="#FFB3B3B3"/>
+                    <Setter Property="FontSize" Value="12"/>
+                    <Setter Property="FontWeight" Value="Normal"/>
+                    <Setter Property="Height" Value="20"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                </Style>
+            </DataGrid.CellStyle>
+
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="FontSize" Value="13"/>
+                    <Setter Property="Height" Value="30"/>
+                    <Setter Property="FontWeight" Value="SemiBold"/>
+                    <Setter Property="BorderBrush" Value="#FFB3B3B3"/>
+                    <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                    <Setter Property="Padding" Value="3,0,0,0"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+
+        </DataGrid>
+
+
+    </Grid>
+
+</UserControl>
